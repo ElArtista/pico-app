@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pico-web
+  labels:
+    app: pico-web
+spec:
+  selector:
+    app: pico-web
+  ports:
+    - port: 80
+      targetPort: http
