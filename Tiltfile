@@ -20,6 +20,7 @@ def flatten(o, p=''):
       l.extend(flatten(e, lk))
   elif type(o) == 'dict':
     for k, v in o.items():
+      k = k.replace('.', '\\.') if k.find('.') != -1 else k
       dk = '{}.{}'.format(p, k) if p else k
       l.extend(flatten(v, dk))
   else:
@@ -35,6 +36,7 @@ for p in projects:
   values = {
     'ingress': {
       'enabled': True,
+      'annotations': {'cert-manager.io/cluster-issuer': 'local-ca-issuer'},
       'hosts': [{
         'host': host,
         'paths': [{
