@@ -32,21 +32,15 @@ def flatten(o, p=''):
 projects = os.getenv('PROJECTS').split(',')
 for p in projects:
   # Deploy: tell Tilt what YAML to deploy
-  host = '{}.{}'.format(p, os.getenv('HOST'))
   values = {
     'ingress': {
       'enabled': True,
-      'annotations': {'cert-manager.io/cluster-issuer': 'local-ca-issuer'},
       'hosts': [{
-        'host': host,
+        'host': p,
         'paths': [{
           'path': '/',
           'pathType': 'ImplementationSpecific'
         }]
-      }],
-      'tls': [{
-        'secretName': '{}-tls'.format(p),
-        'hosts': [host]
       }]
     }
   }
